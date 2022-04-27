@@ -1,43 +1,11 @@
 import { ApolloProvider } from '@apollo/client';
-import { Global, css } from '@emotion/react';
-import styled from '@emotion/styled';
+import { ChakraProvider } from '@chakra-ui/react';
 import Head from 'next/head';
 import client from '../apollo-client';
 
-// Reset CSS
-const GlobalStyles = css`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  html,
-  body {
-    height: 100%;
-    width: 100%;
-  }
-`;
-
-const MainSection = styled.main`
-  flex-grow: 1;
-  margin-top: 80px;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
 function MyApp({ Component, pageProps }) {
   return (
-    <Wrapper>
-      <Global styles={GlobalStyles} />
+    <>
       <Head>
         <title>My Anime List</title>
         <meta
@@ -48,11 +16,11 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <ApolloProvider client={client}>
-        <MainSection>
+        <ChakraProvider>
           <Component {...pageProps} />
-        </MainSection>
+        </ChakraProvider>
       </ApolloProvider>
-    </Wrapper>
+    </>
   );
 }
 
