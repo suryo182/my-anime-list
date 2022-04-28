@@ -1,16 +1,7 @@
 import { gql } from '@apollo/client';
-import {
-  Badge,
-  Box,
-  Container,
-  Flex,
-  Image,
-  Text,
-  Wrap,
-  WrapItem,
-} from '@chakra-ui/react';
-import { MdStar } from 'react-icons/md';
+import { Container, Wrap } from '@chakra-ui/react';
 import client from '../apollo-client';
+import Card from '../components/Card';
 import Header from '../components/Header';
 
 export default function Home({ data }) {
@@ -23,32 +14,8 @@ export default function Home({ data }) {
         <Wrap justify="center">
           {trending.media.length > 0 &&
             trending.media.map((anime) => (
-              <Box key={anime.id} width={200} cursor="pointer">
-                <Image borderRadius="md" src={anime.coverImage.large} />
-                <Flex align="baseline" mt={2} gap={2} wrap="wrap">
-                  {anime.genres &&
-                    anime.genres.map((genre, idx) => (
-                      <Badge colorScheme="pink" id={idx}>
-                        {genre}
-                      </Badge>
-                    ))}
-                </Flex>
-                <Text
-                  mt={2}
-                  fontSize="xl"
-                  fontWeight="semibold"
-                  lineHeight="short"
-                >
-                  {anime.title.romaji}
-                </Text>
-                <Flex mt={2} align="center">
-                  <Text ml={1} fontSize="sm">
-                    <b>{anime.averageScore}</b> ({anime.popularity})
-                  </Text>
-                </Flex>
-              </Box>
+              <Card anime={anime} key={anime.id} />
             ))}
-          <WrapItem p="5" maxW="320px" borderWidth="1px"></WrapItem>
         </Wrap>
       </Container>
     </>
